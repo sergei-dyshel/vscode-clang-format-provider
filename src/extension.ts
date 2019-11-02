@@ -148,7 +148,7 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
   /// Get execute name in clang-format.executable, if not found, use default value
   /// If configure has changed, it will get the new value
   private getExecutablePath() {
-    let execPath = vscode.workspace.getConfiguration('clang-format').get<string>('executable');
+    let execPath = vscode.workspace.getConfiguration('clang-format.alt').get<string>('executable');
     if (!execPath) {
       return this.defaultConfigure.executable;
     }
@@ -167,12 +167,12 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
   }
 
   private getStyle(document: vscode.TextDocument) {
-    let ret = vscode.workspace.getConfiguration('clang-format').get<string>(`language.${this.getLanguage(document)}.style`);
+    let ret = vscode.workspace.getConfiguration('clang-format.alt').get<string>(`language.${this.getLanguage(document)}.style`);
     if (ret.trim()) {
       return ret.trim();
     }
 
-    ret = vscode.workspace.getConfiguration('clang-format').get<string>('style');
+    ret = vscode.workspace.getConfiguration('clang-format.alt').get<string>('style');
     if (ret && ret.trim()) {
       return ret.trim();
     } else {
@@ -181,12 +181,12 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
   }
 
   private getFallbackStyle(document: vscode.TextDocument) {
-    let strConf = vscode.workspace.getConfiguration('clang-format').get<string>(`language.${this.getLanguage(document)}.fallbackStyle`);
+    let strConf = vscode.workspace.getConfiguration('clang-format.alt').get<string>(`language.${this.getLanguage(document)}.fallbackStyle`);
     if (strConf.trim()) {
       return strConf;
     }
 
-    strConf = vscode.workspace.getConfiguration('clang-format').get<string>('fallbackStyle');
+    strConf = vscode.workspace.getConfiguration('clang-format.alt').get<string>('fallbackStyle');
     if (strConf.trim()) {
       return strConf;
     }
@@ -195,7 +195,7 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
   }
 
   private getAssumedFilename(document: vscode.TextDocument) {
-    let assumedFilename = vscode.workspace.getConfiguration('clang-format').get<string>('assumeFilename');
+    let assumedFilename = vscode.workspace.getConfiguration('clang-format.alt').get<string>('assumeFilename');
     if (assumedFilename === '') {
       return document.fileName;
     }
